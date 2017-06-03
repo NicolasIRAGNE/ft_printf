@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
+/*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/02 23:44:07 by anonymous         #+#    #+#             */
-/*   Updated: 2017/06/03 01:28:12 by anonymous        ###   ########.fr       */
+/*   Updated: 2017/06/03 16:57:19 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,37 @@ void	fill_error_func(int (*f[127])(va_list))
 	int i;
 
 	i = 0;
-	while (i < 128)
+	while (i < 127)
 	{
 		f[i] = ft_printf_error;
 		i++;
 	}
+}
+
+void	fill_flag_array(unsigned int arr[127])
+{
+	int i;
+
+	while (i < 127)
+	{
+		arr[i] = 0;
+		i++;
+	}
+	arr['#'] = 1;
+	arr['0'] = 1;
+	arr['1'] = 1;
+	arr['2'] = 1;
+	arr['3'] = 1;
+	arr['4'] = 1;
+	arr['5'] = 1;
+	arr['6'] = 1;
+	arr['7'] = 1;
+	arr['8'] = 1;
+	arr['9'] = 1;
+	arr['.'] = 1;
+	arr['-'] = 1;
+	arr[' '] = 1;
+	arr['+'] = 1;
 }
 
 int		ft_printf_s(va_list ap)
@@ -51,7 +77,7 @@ int		ft_printf_c(va_list ap)
 
 int		checkflags(const char *str, int i, va_list ap, int (*f[127])(va_list))
 {
-	f[str[i +1]](ap);
+	f[str[i + 1]](ap);
 	return (1);
 }
 
@@ -68,8 +94,10 @@ int		ft_printf(const char *format, ...)
 	int i;
 	va_list ap;
 	static int (*f[127])(va_list);
+	unsigned int flags[127];
 
 	va_start(ap, format);
+	fill_flag_array(flags);
 	fill_ptr_arr(f);
 	i = 0;
 	while (format[i])
@@ -84,4 +112,5 @@ int		ft_printf(const char *format, ...)
 		}
 		i++;
 	}
+	return (i);
 }
