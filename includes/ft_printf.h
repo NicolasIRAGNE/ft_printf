@@ -6,7 +6,7 @@
 /*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/02 23:26:29 by anonymous         #+#    #+#             */
-/*   Updated: 2017/06/03 16:56:17 by niragne          ###   ########.fr       */
+/*   Updated: 2017/06/10 17:57:21 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdarg.h>
 # include <stdlib.h>
 # include "libft.h"
+# include <wchar.h>
 
 # define FHT 0x1
 # define FZE 0x2
@@ -34,11 +35,17 @@
 # define FZ 4
 # define FL 5
 # define FLL 6
+# define FLAGS flags->flags
+# define BLANKS flags->blanks
+# define PREC flags->precision
+# define TYPE flags->type
 
 int		ft_printf(const char *format, ...);
 
 typedef struct s_flags t_flags;
 typedef unsigned int t_uint;
+typedef unsigned long long int t_ullint;
+typedef unsigned long int t_ulint;
 
 struct s_flags
 {
@@ -47,5 +54,12 @@ struct s_flags
 	int		precision;
 	int		type;
 };
+
+int		ft_printf_d(t_flags *flags, va_list ap);
+int		ft_printf_s(t_flags *flags, va_list ap);
+int		ft_printf_u(t_flags *flags, va_list ap);
+int		ft_printf_c(t_flags *flags, va_list ap);
+int		ft_printf_ls(t_flags *flags, wchar_t *str);
+int		nbrtostr(t_ullint nb, char **str, int base);
 
 #endif

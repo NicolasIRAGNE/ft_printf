@@ -3,16 +3,23 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+         #
+#    By: niragne <niragne@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/06/02 23:46:42 by anonymous         #+#    #+#              #
-#    Updated: 2017/06/03 00:11:29 by anonymous        ###   ########.fr        #
+#    Updated: 2017/06/10 17:57:09 by niragne          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = ft_printf.a
 SRC_PATH = src
-SRC_FILES = 	ft_printf.c
+SRC_FILES = 	ft_printf.c \
+				ft_printf_s.c \
+				ft_printf_d.c \
+				ft_printf_u.c \
+				ft_printf_c.c \
+				nbrtostr.c
+
+
 
 
 SRC = $(addprefix $(SRC_PATH)/, $(SRC_FILES))
