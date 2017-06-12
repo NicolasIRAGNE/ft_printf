@@ -6,7 +6,7 @@
 /*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/02 23:26:29 by anonymous         #+#    #+#             */
-/*   Updated: 2017/06/10 17:57:21 by niragne          ###   ########.fr       */
+/*   Updated: 2017/06/12 17:16:41 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,19 @@ int		ft_printf_s(t_flags *flags, va_list ap);
 int		ft_printf_u(t_flags *flags, va_list ap);
 int		ft_printf_c(t_flags *flags, va_list ap);
 int		ft_printf_ls(t_flags *flags, wchar_t *str);
+int		ft_printf_o(t_flags *flags, va_list ap);
+int		ft_printf_x(t_flags *flags, va_list ap);
+int		ft_printf_p(t_flags *flags, va_list ap);
 int		nbrtostr(t_ullint nb, char **str, int base);
+void	ft_cast_int(t_ullint *nb, va_list ap);
+void	ft_cast_char(t_ullint *nb, va_list ap);
+void	ft_cast_short(t_ullint *nb, va_list ap);
+void	ft_cast_uintmax(t_ullint *nb, va_list ap);
+void	ft_cast_sizet(t_ullint *nb, va_list ap);
+void	ft_cast_long(t_ullint *nb, va_list ap);
+void	ft_cast_long_long(t_ullint *nb, va_list ap);
+void	fill_arr(void (***f)(t_ullint *, va_list));
+void	printchar(int c, int size);
+int		cmp(int a, int b);
 
 #endif

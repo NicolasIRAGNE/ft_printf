@@ -6,7 +6,7 @@
 /*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/10 16:39:03 by niragne           #+#    #+#             */
-/*   Updated: 2017/06/10 17:58:25 by niragne          ###   ########.fr       */
+/*   Updated: 2017/06/12 18:38:40 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,13 @@
 
 int		ft_printf_s(t_flags *flags, va_list ap)
 {
-	char *str = va_arg(ap, char*);
-	int len = ft_strlen(str);
+	char *str;
+	int len;
 	int i;
 	char buf[BLANKS];
 
+	str = va_arg(ap, char*);
+	len = ft_strlen(str);
 	if (flags->type == FL)
 		return(ft_printf_ls(flags, va_arg(ap, wchar_t *)));
 	BLANKS -= len;

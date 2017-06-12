@@ -1,47 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   nbrtostr.c                                         :+:      :+:    :+:   */
+/*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/06/10 17:44:03 by niragne           #+#    #+#             */
-/*   Updated: 2017/06/12 17:12:21 by niragne          ###   ########.fr       */
+/*   Created: 2017/06/12 15:58:29 by niragne           #+#    #+#             */
+/*   Updated: 2017/06/12 16:48:41 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static char ft_getchar(int c)
+int cmp(int a, int b)
 {
-	if (c < 10)
-		return (c + '0');
-	return (c + 'a' - 10);
+	if (a > b)
+		return (a);
+	return (b);
 }
 
-int	nbrtostr(t_ullint nb, char **str, int base)
+void	fill_arr(void (***f)(t_ullint *, va_list))
 {
-	int i;
-	t_ullint div;
-	int len;
-
-	len = 1;
-	div = 1;
-	while (div <= nb / base)
-	{
-		div *= base;
-		len++;
-	}
-	if (!(*str = (char *)malloc(sizeof(**str) * (len + 1))))
+	if (!(*f = malloc(sizeof(**f) * 7)))
 		exit(1);
-	i = 0;
-	while (div > 0)
-	{
-		(*str)[i] = ft_getchar(nb / div);
-		nb %= div;
-		div /= base;
-		i++;
-	}
-	(*str)[i] = '\0';
-	return (len);
+	(*f)[0] = ft_cast_int;
+	(*f)[1] = ft_cast_char;
+	(*f)[2] = ft_cast_short;
+	(*f)[3] = ft_cast_uintmax;
+	(*f)[4] = ft_cast_sizet;
+	(*f)[5] = ft_cast_long;
+	(*f)[6] = ft_cast_long_long;
+}
+
+void	printchar(int c, int size)
+{
+	char buf[size];
+
+	ft_memset(buf, c, size);
+	write(1, buf, size);
 }

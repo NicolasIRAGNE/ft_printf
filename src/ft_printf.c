@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/06/02 23:44:07 by anonymous         #+#    #+#             */
-/*   Updated: 2017/06/10 18:05:16 by niragne          ###   ########.fr       */
+/*   Created: 2017/06/12 14:42:22 by niragne           #+#    #+#             */
+/*   Updated: 2017/06/12 18:38:49 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,7 @@
 
 int		ft_printf_error(t_flags *flags, va_list ap)
 {
-	ft_putstr("error ma couille\n");
-	exit(1);
+	return(-1);
 }
 
 void	fill_error_func(int (*f[127])(t_flags *, va_list))
@@ -71,8 +70,7 @@ int		ft_printf_ls(t_flags *flags, wchar_t *str)
 
 int		checkflags(const char *str, va_list ap, int (*f[127])(t_flags *, va_list), t_flags *flags)
 {
-	f[*str](flags, ap);
-	return (1);
+	return (f[*str](flags, ap));
 }
 
 void	fill_func_ptr_arr(int (*f[127])(t_flags *, va_list))
@@ -81,7 +79,10 @@ void	fill_func_ptr_arr(int (*f[127])(t_flags *, va_list))
 	f['s'] = ft_printf_s;
 	f['d'] = ft_printf_d;
 	f['c'] = ft_printf_c;
-	f['u'] = ft_printf_u;	
+	f['u'] = ft_printf_u;
+	f['o'] = ft_printf_o;
+	f['x'] = ft_printf_x;
+	f['p'] = ft_printf_p;
 }
 
 void		add_ht(t_flags *flags, char **str)
@@ -209,6 +210,7 @@ int		ft_printf(const char *format, ...)
 	static int (*f[127])(t_flags *, va_list);
 	static void (*flagptr[127])(t_flags *, char **);
 	static t_uint flags[127] = {-1};
+	int stek = 0;
 
 	va_start(ap, format);
 	if (flags[0] == -1)
@@ -228,13 +230,14 @@ int		ft_printf(const char *format, ...)
 				flagptr[*format](&beep, (char**)&format);
 				format++;
 			}
-			checkflags(format, ap, f, &beep);
+			stek += checkflags(format, ap, f, &beep);
 		}
 		else
 		{
 			ft_putchar(*format);
 		}
+		stek++;
 		format++;
 	}
-	return (0);
+	return (stek);
 }
