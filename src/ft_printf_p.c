@@ -6,7 +6,7 @@
 /*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/12 17:15:52 by niragne           #+#    #+#             */
-/*   Updated: 2017/06/12 18:02:30 by niragne          ###   ########.fr       */
+/*   Updated: 2017/06/13 18:19:09 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		ft_printf_p(t_flags *flags, va_list ap)
 	if (f == NULL)
 		fill_arr(&f);
 	f[TYPE](&nb, ap);
-	len = nbrtostr(nb, &str, 16);
+	len = nbrtostr(nb, &str, 16, 0);
 	if (BLANKS > 0)
 		BLANKS -= 2;
 	PREC = (!(PREC < len) * PREC - len);

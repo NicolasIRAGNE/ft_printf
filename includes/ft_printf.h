@@ -6,7 +6,7 @@
 /*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/02 23:26:29 by anonymous         #+#    #+#             */
-/*   Updated: 2017/06/12 17:16:41 by niragne          ###   ########.fr       */
+/*   Updated: 2017/06/13 18:20:59 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,9 @@ int		ft_printf(const char *format, ...);
 typedef struct s_flags t_flags;
 typedef unsigned int t_uint;
 typedef unsigned long long int t_ullint;
+typedef long long int t_llint;
 typedef unsigned long int t_ulint;
+typedef unsigned char		t_uchar;
 
 struct s_flags
 {
@@ -55,24 +57,38 @@ struct s_flags
 	int		type;
 };
 
+void	ft_type_l(t_flags *flags, char **str);
 int		ft_printf_d(t_flags *flags, va_list ap);
 int		ft_printf_s(t_flags *flags, va_list ap);
 int		ft_printf_u(t_flags *flags, va_list ap);
+int		ft_printf_uu(t_flags *flags, va_list ap);
 int		ft_printf_c(t_flags *flags, va_list ap);
 int		ft_printf_ls(t_flags *flags, wchar_t *str);
 int		ft_printf_o(t_flags *flags, va_list ap);
 int		ft_printf_x(t_flags *flags, va_list ap);
+int		ft_printf_xx(t_flags *flags, va_list ap);
 int		ft_printf_p(t_flags *flags, va_list ap);
-int		nbrtostr(t_ullint nb, char **str, int base);
-void	ft_cast_int(t_ullint *nb, va_list ap);
-void	ft_cast_char(t_ullint *nb, va_list ap);
-void	ft_cast_short(t_ullint *nb, va_list ap);
+int		ft_printf_dd(t_flags *flags, va_list ap);
+int		nbrtostr(t_ullint nb, char **str, int base, int maj);
+void	ft_cast_uint(t_ullint *nb, va_list ap);
+void	ft_cast_uchar(t_ullint *nb, va_list ap);
+void	ft_cast_ushort(t_ullint *nb, va_list ap);
 void	ft_cast_uintmax(t_ullint *nb, va_list ap);
 void	ft_cast_sizet(t_ullint *nb, va_list ap);
-void	ft_cast_long(t_ullint *nb, va_list ap);
-void	ft_cast_long_long(t_ullint *nb, va_list ap);
+void	ft_cast_ulong(t_ullint *nb, va_list ap);
+void	ft_cast_ulong_long(t_ullint *nb, va_list ap);
+void	ft_cast_int(t_llint *nb, va_list ap);
+void	ft_cast_char(t_llint *nb, va_list ap);
+void	ft_cast_short(t_llint *nb, va_list ap);
+void	ft_cast_intmax(t_llint *nb, va_list ap);
+void	ft_cast_ssizet(t_llint *nb, va_list ap);
+void	ft_cast_long(t_llint *nb, va_list ap);
+void	ft_cast_long_long(t_llint *nb, va_list ap);
 void	fill_arr(void (***f)(t_ullint *, va_list));
+void	fill_arr_signed(void (***f)(t_llint *, va_list));
 void	printchar(int c, int size);
 int		cmp(int a, int b);
+int		ft_buf(int fd, void *str, int size);
+int		nbrtostrneg(t_llint nb, char **str, int base);
 
 #endif

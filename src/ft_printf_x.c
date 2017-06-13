@@ -6,11 +6,22 @@
 /*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/12 17:06:43 by niragne           #+#    #+#             */
-/*   Updated: 2017/06/12 17:59:51 by niragne          ###   ########.fr       */
+/*   Updated: 2017/06/13 18:39:45 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+void	add_prefix(t_flags *flags)
+{
+	ft_buf(1, "0", 1);
+	if (FLAGS & FMAJ)
+	{
+		ft_buf(1, "X", 1);
+	}
+	else
+		ft_buf(1, "x", 1);
+}
 
 int		ft_printf_x(t_flags *flags, va_list ap)
 {
@@ -22,7 +33,7 @@ int		ft_printf_x(t_flags *flags, va_list ap)
 	if (f == NULL)
 		fill_arr(&f);
 	f[TYPE](&nb, ap);
-	len = nbrtostr(nb, &str, 16);
+	len = nbrtostr(nb, &str, 16, ((FLAGS & FMAJ) > 0));
 	if (BLANKS > 0 && (FLAGS & FHT))
 		BLANKS -= 2;
 	PREC = (!(PREC < len) * PREC - len);
@@ -32,15 +43,14 @@ int		ft_printf_x(t_flags *flags, va_list ap)
 		PREC = BLANKS;
 		BLANKS = 0;
 	}
-	printf("%d %d\n", BLANKS, PREC);
 	if (BLANKS > 0 && !(FLAGS & FSUB))
 		printchar(' ' + 16 * ((FLAGS & FZE) && (!(FLAGS & FPREC))), BLANKS);
-	if (FLAGS & FHT)
-		write(1, "0x", 2);
+	if (FLAGS & FHT && nb)
+		add_prefix(flags);
 	if (PREC > 0)
 		printchar('0', PREC);
-	write(1, str, len);
+	ft_buf(1, str, len);
 	if (BLANKS > 0 && (FLAGS & FSUB))
 		printchar(' ', BLANKS);
-	return (len + BLANKS + PREC);
+	return (len + BLANKS * (BLANKS > 0) + PREC * (PREC > 0) + 2 * (((FLAGS & FHT) && nb) > 0));
 }

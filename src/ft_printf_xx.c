@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_dd.c                                     :+:      :+:    :+:   */
+/*   ft_printf_xx.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/06/12 18:42:04 by niragne           #+#    #+#             */
-/*   Updated: 2017/06/13 18:04:06 by niragne          ###   ########.fr       */
+/*   Created: 2017/06/13 18:20:07 by niragne           #+#    #+#             */
+/*   Updated: 2017/06/13 18:20:36 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		ft_printf_dd(t_flags *flags, va_list ap)
+int		ft_printf_xx(t_flags *flags, va_list ap)
 {
-	ft_type_l(flags, NULL);
-	return(ft_printf_d(flags, ap));
+	FLAGS |= FMAJ;
+	return(ft_printf_x(flags, ap));
 }

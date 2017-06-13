@@ -6,7 +6,7 @@
 /*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/12 15:57:52 by niragne           #+#    #+#             */
-/*   Updated: 2017/06/12 16:53:19 by niragne          ###   ########.fr       */
+/*   Updated: 2017/06/13 18:18:50 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,17 @@ int		ft_printf_o(t_flags *flags, va_list ap)
 	if (f == NULL)
 		fill_arr(&f);
 	f[TYPE](&nb, ap);
-	len = nbrtostr(nb, &str, 8) + ((FLAGS & FHT) > 0);
+	len = nbrtostr(nb, &str, 8, 0) + ((FLAGS & FHT) > 0);
 	PREC = (!(PREC < len) * PREC - len);
-	BLANKS = (!(BLANKS < PREC + len) * BLANKS - (PREC + len));
+	BLANKS = (!(BLANKS < PREC + len) * BLANKS - (PREC + len) - len);
 	if (BLANKS > 0 && !(FLAGS & FSUB))
 		printchar(' ' + 16 * ((FLAGS & FZE) > 0), BLANKS);
 	if (FLAGS & FHT)
-		write(1, "0", 1);
+		ft_buf(1, "0", 1);
 	if (PREC > 0)
 		printchar('0', PREC);
-	write(1, str, len);
+	ft_buf(1, str, len - ((FLAGS & FHT) > 0));
 	if (BLANKS > 0 && (FLAGS & FSUB))
 		printchar(' ', BLANKS);
-	return (len + BLANKS + PREC);
+	return (len + BLANKS * (BLANKS > 0) + PREC * (PREC > 0));
 }

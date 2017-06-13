@@ -6,7 +6,7 @@
 /*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/12 14:42:22 by niragne           #+#    #+#             */
-/*   Updated: 2017/06/12 18:38:49 by niragne          ###   ########.fr       */
+/*   Updated: 2017/06/13 18:21:13 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,17 +78,22 @@ void	fill_func_ptr_arr(int (*f[127])(t_flags *, va_list))
 	fill_error_func(f);
 	f['s'] = ft_printf_s;
 	f['d'] = ft_printf_d;
+	f['D'] = ft_printf_dd;
 	f['c'] = ft_printf_c;
 	f['u'] = ft_printf_u;
+	f['U'] = ft_printf_uu;	
 	f['o'] = ft_printf_o;
 	f['x'] = ft_printf_x;
+	f['X'] = ft_printf_xx;
 	f['p'] = ft_printf_p;
+
 }
 
 void		add_ht(t_flags *flags, char **str)
 {
 	FLAGS |= FHT;
 }
+
 
 void		add_dollar(t_flags *flags, char **str)
 {
@@ -210,7 +215,7 @@ int		ft_printf(const char *format, ...)
 	static int (*f[127])(t_flags *, va_list);
 	static void (*flagptr[127])(t_flags *, char **);
 	static t_uint flags[127] = {-1};
-	int stek = 0;
+	int ret = 0;
 
 	va_start(ap, format);
 	if (flags[0] == -1)
@@ -230,14 +235,16 @@ int		ft_printf(const char *format, ...)
 				flagptr[*format](&beep, (char**)&format);
 				format++;
 			}
-			stek += checkflags(format, ap, f, &beep);
+			ret += checkflags(format, ap, f, &beep);
 		}
 		else
 		{
-			ft_putchar(*format);
+			ret++;
+			ft_buf(1, (void*)format, 1);
 		}
-		stek++;
 		format++;
 	}
-	return (stek);
+	ft_buf(1, "", 1);
+	ft_buf(1, NULL, -1);
+	return (ret);
 }
