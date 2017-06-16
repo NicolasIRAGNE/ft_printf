@@ -6,7 +6,7 @@
 /*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/12 16:22:10 by niragne           #+#    #+#             */
-/*   Updated: 2017/06/16 16:26:30 by niragne          ###   ########.fr       */
+/*   Updated: 2017/06/16 19:09:21 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <locale.h>
 #include <limits.h>
 
-#define test "%S", L"abc mdr\x85445"
+#define test "%03.1d", 1
 
 
 
@@ -24,14 +24,4 @@ int	main(int argc, char const *argv[])
 	printf(" le mien %d \n", ft_printf(test));
 	printf(" le vrai %d \n", printf(test));
 	return 0;
-	/*
-	int i = 0;
-	while (i < 150000)
-	{
-		if (i < 0xd800 || i > 0xdfff)
-		{
-			ft_printf("%C\n", i);
-		}
-		i++;
-	}*/
 }

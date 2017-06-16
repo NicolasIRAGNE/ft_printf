@@ -6,7 +6,7 @@
 #    By: niragne <niragne@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/06/02 23:46:42 by anonymous         #+#    #+#              #
-#    Updated: 2017/06/16 14:31:58 by niragne          ###   ########.fr        #
+#    Updated: 2017/06/16 18:08:46 by niragne          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SRC_FILES = 	ft_printf.c \
 				ft_printf_uu.c \
 				ft_printf_xx.c \
 				ft_printf_ss.c \
+				ft_printf_pct.c \
 				cast1.c \
 				cast2.c \
 				cast3.c \

@@ -6,7 +6,7 @@
 /*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/10 16:40:08 by niragne           #+#    #+#             */
-/*   Updated: 2017/06/14 16:44:55 by niragne          ###   ########.fr       */
+/*   Updated: 2017/06/16 17:59:11 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,26 @@ int		ft_printf_d(t_flags *flags, va_list ap)
 {
 	t_llint	nb;
 	int			len;
+	int			oui;
 	char		*str;
 	static void	(**f)(t_llint *, va_list) = NULL;
 
 	if (f == NULL)
 		fill_arr_signed(&f);
 	f[TYPE](&nb, ap);
-	len = nbrtostrneg(nb, &str, 10, (FLAGS & FADD) > 0);
-	PREC = (!(PREC < len) * PREC - len);
-	BLANKS -= PREC * (PREC > 0) + len + ((FLAGS & (FADD | FSPACE)) > 0);
-	if (BLANKS > 0 && !(FLAGS & FSUB))
+	len = nbrtostrneg(nb, &str, 10, FLAGS);
+	oui = *str == '-' || *str == '+' || *str == ' ';
+	PREC = (!(PREC < len) * PREC - len) + oui;
+	BLANKS -= PREC * (PREC > 0) + len;
+	if (BLANKS > 0 && !(FLAGS & FSUB) && !(FLAGS & FZE))
+		printchar(' ' + 16 * ((FLAGS & FZE) > 0), BLANKS);
+	if (oui)
+		ft_buf(1, str, 1);
+	if (BLANKS > 0 && !(FLAGS & FSUB) && (FLAGS & FZE))
 		printchar(' ' + 16 * ((FLAGS & FZE) > 0), BLANKS);
 	if (PREC > 0)
 		printchar('0', PREC);
-	ft_buf(1, str, len);
+	ft_buf(1, str + oui, len - oui);
 	free(str);
 	if (BLANKS > 0 && (FLAGS & FSUB))
 		printchar(' ', BLANKS);

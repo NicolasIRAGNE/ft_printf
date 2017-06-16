@@ -6,7 +6,7 @@
 /*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/12 15:57:52 by niragne           #+#    #+#             */
-/*   Updated: 2017/06/14 13:28:53 by niragne          ###   ########.fr       */
+/*   Updated: 2017/06/16 19:05:16 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int		ft_printf_o(t_flags *flags, va_list ap)
 	f[TYPE](&nb, ap);
 	len = nbrtostr(nb, &str, 8, 0) + ((FLAGS & FHT) > 0);
 	PREC = (!(PREC < len) * PREC - len);
-	BLANKS = (!(BLANKS < PREC + len) * BLANKS - (PREC + len) - len);
+	BLANKS = (!(BLANKS < PREC + len) * BLANKS - ((PREC > 0) * PREC + len));
 	if (BLANKS > 0 && !(FLAGS & FSUB))
 		printchar(' ' + 16 * ((FLAGS & FZE) > 0), BLANKS);
 	if (FLAGS & FHT)

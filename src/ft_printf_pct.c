@@ -1,28 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_c.c                                      :+:      :+:    :+:   */
+/*   ft_printf_pct.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/06/10 16:41:20 by niragne           #+#    #+#             */
-/*   Updated: 2017/06/16 16:36:51 by niragne          ###   ########.fr       */
+/*   Created: 2017/06/16 18:06:22 by niragne           #+#    #+#             */
+/*   Updated: 2017/06/16 18:08:25 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		ft_printf_c(t_flags *flags, va_list ap)
+int		ft_printf_pct(t_flags *flags, va_list ap)
 {
 	unsigned char c;
 	int i;
 	char buf[BLANKS];
 	
-	if (flags->type == FL && MB_CUR_MAX > 1)
-		return(ft_printf_lc(flags, ap));
-	if (flags->type == FL && MB_CUR_MAX)
-		return (-1);
-	c = va_arg(ap, int);
+	(void)ap;
 	BLANKS--;
 	i = 0;
 	if (BLANKS > 0 && !(FLAGS & FSUB))
@@ -30,7 +26,7 @@ int		ft_printf_c(t_flags *flags, va_list ap)
 		ft_memset(buf, ' ' + 16 * ((FLAGS & FZE) > 0), BLANKS);
 		ft_buf(1, buf, BLANKS);
 	}
-	ft_buf(1, &c, 1);
+	ft_buf(1, "%", 1);
 	if (BLANKS > 0 && (FLAGS & FSUB))
 	{
 		ft_memset(buf, ' ', BLANKS);

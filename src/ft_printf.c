@@ -6,7 +6,7 @@
 /*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/12 14:42:22 by niragne           #+#    #+#             */
-/*   Updated: 2017/06/16 14:20:19 by niragne          ###   ########.fr       */
+/*   Updated: 2017/06/16 18:28:21 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ void	fill_func_ptr_arr(int (*f[127])(t_flags *, va_list))
 	f['x'] = ft_printf_x;
 	f['X'] = ft_printf_xx;
 	f['p'] = ft_printf_p;
+	f['%'] = ft_printf_pct;
 
 }
 
@@ -114,6 +115,8 @@ void	add_minus(t_flags *flags, char **str)
 
 void		add_plus(t_flags *flags, char **str)
 {
+	if (FLAGS & FSPACE)
+		FLAGS ^= FSPACE;
 	FLAGS |= FADD;
 }
 
@@ -143,7 +146,8 @@ void		ft_blanks(t_flags *flags, char **str)
 
 void		add_space(t_flags *flags, char **str)
 {
-	FLAGS |= FSPACE;
+	if (!(FLAGS & FADD))
+		FLAGS |= FSPACE;
 }
 
 void	ft_type_j(t_flags *flags, char **str)
@@ -213,6 +217,7 @@ void	init_flags(t_flags *flags)
 int		ft_printf(const char *format, ...)
 {
 	va_list ap;
+	int tmp;
 	t_flags beep;
 	static int (*f[127])(t_flags *, va_list);
 	static void (*flagptr[127])(t_flags *, char **);
@@ -237,7 +242,11 @@ int		ft_printf(const char *format, ...)
 				flagptr[*format](&beep, (char**)&format);
 				format++;
 			}
-			ret += checkflags(format, ap, f, &beep);
+			tmp = checkflags(format, ap, f, &beep);
+			if (tmp == -1)
+				format--;
+			else
+				ret += tmp;
 		}
 		else
 		{
