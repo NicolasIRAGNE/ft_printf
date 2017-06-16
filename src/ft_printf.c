@@ -6,7 +6,7 @@
 /*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/12 14:42:22 by niragne           #+#    #+#             */
-/*   Updated: 2017/06/16 21:25:32 by niragne          ###   ########.fr       */
+/*   Updated: 2017/06/16 21:52:03 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int		ft_printf_error(t_flags *flags, va_list ap)
 {
-	return(-1);
+	return(-2);
 }
 
 void	fill_error_func(int (*f[127])(t_flags *, va_list))
@@ -247,7 +247,7 @@ int		ft_printf(const char *format, ...)
 				format++;
 			}
 			tmp = checkflags(format, ap, f, &beep);
-			if (tmp == -1)
+			if (tmp == -2)
 				format--;
 			else
 				ret += tmp;
