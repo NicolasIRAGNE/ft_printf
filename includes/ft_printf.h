@@ -6,7 +6,7 @@
 /*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/02 23:26:29 by anonymous         #+#    #+#             */
-/*   Updated: 2017/06/16 18:08:43 by niragne          ###   ########.fr       */
+/*   Updated: 2017/06/16 21:19:38 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # define FAQ 0x100
 # define FMAJ 0x200
 # define FPREC 0x400
+# define FNUL 0x800
 # define FHH 1
 # define FH 2
 # define FJ 3
@@ -71,6 +72,8 @@ int		ft_printf_xx(t_flags *flags, va_list ap);
 int		ft_printf_p(t_flags *flags, va_list ap);
 int		ft_printf_dd(t_flags *flags, va_list ap);
 int		ft_printf_ss(t_flags *flags, va_list ap);
+int		ft_printf_oo(t_flags *flags, va_list ap);
+int		ft_printf_b(t_flags *flags, va_list ap);
 int		nbrtostr(t_ullint nb, char **str, int base, int maj);
 void	ft_cast_uint(t_ullint *nb, va_list ap);
 void	ft_cast_uchar(t_ullint *nb, va_list ap);
@@ -98,6 +101,7 @@ int 	ft_wstrlen(wchar_t *str);
 wchar_t	*ft_wstrdup(char *str);
 int		ft_wcharlen(wchar_t c);
 int		ft_printf_pct(t_flags *flags, va_list ap);
+int		ft_printf_lc2(t_flags *flags, va_list ap);
 
 
 #endif

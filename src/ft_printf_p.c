@@ -6,7 +6,7 @@
 /*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/12 17:15:52 by niragne           #+#    #+#             */
-/*   Updated: 2017/06/13 18:19:09 by niragne          ###   ########.fr       */
+/*   Updated: 2017/06/16 21:42:11 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 int		ft_printf_p(t_flags *flags, va_list ap)
 {
-	t_ullint	nb;
+	t_ulint	nb;
 	int			len;
 	char		*str;
 	static void	(**f)(t_ullint *, va_list) = NULL;
 
 	if (f == NULL)
 		fill_arr(&f);
-	f[TYPE](&nb, ap);
+	nb = va_arg(ap, t_ulint);
 	len = nbrtostr(nb, &str, 16, 0);
 	if (BLANKS > 0)
 		BLANKS -= 2;
@@ -32,14 +32,14 @@ int		ft_printf_p(t_flags *flags, va_list ap)
 		PREC = BLANKS;
 		BLANKS = 0;
 	}
-	printf("%d %d\n", BLANKS, PREC);
 	if (BLANKS > 0 && !(FLAGS & FSUB))
 		printchar(' ' + 16 * ((FLAGS & FZE) && (!(FLAGS & FPREC))), BLANKS);
-	write(1, "0x", 2);
+	ft_buf(1, "0x", 2);
 	if (PREC > 0)
 		printchar('0', PREC);
-	write(1, str, len);
+	ft_buf(1, str, len);
 	if (BLANKS > 0 && (FLAGS & FSUB))
 		printchar(' ', BLANKS);
-	return (len + BLANKS + PREC);
+	free(str);
+	return (len + BLANKS * (BLANKS > 0) + PREC * (PREC > 0) + 2);
 }

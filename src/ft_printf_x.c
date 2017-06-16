@@ -6,7 +6,7 @@
 /*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/12 17:06:43 by niragne           #+#    #+#             */
-/*   Updated: 2017/06/16 18:45:46 by niragne          ###   ########.fr       */
+/*   Updated: 2017/06/16 21:43:02 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int		ft_printf_x(t_flags *flags, va_list ap)
 	if (f == NULL)
 		fill_arr(&f);
 	f[TYPE](&nb, ap);
-	len = nbrtostr(nb, &str, 16, ((FLAGS & FMAJ) > 0));
+	len = nbrtostr(nb, &str, 16, ((FLAGS & FMAJ) > 0)) - (!nb && !PREC && (FLAGS & FPREC));
 	if (BLANKS > 0 && (FLAGS & FHT))
 		BLANKS -= 2;
 	PREC = (!(PREC < len) * PREC - len);
@@ -47,5 +47,6 @@ int		ft_printf_x(t_flags *flags, va_list ap)
 	ft_buf(1, str, len);
 	if (BLANKS > 0 && (FLAGS & FSUB))
 		printchar(' ', BLANKS);
+	free(str);
 	return (len + BLANKS * (BLANKS > 0) + PREC * (PREC > 0) + 2 * (((FLAGS & FHT) && nb) > 0));
 }

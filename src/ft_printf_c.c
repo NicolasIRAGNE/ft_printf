@@ -6,7 +6,7 @@
 /*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/10 16:41:20 by niragne           #+#    #+#             */
-/*   Updated: 2017/06/16 16:36:51 by niragne          ###   ########.fr       */
+/*   Updated: 2017/06/16 19:41:30 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		ft_printf_c(t_flags *flags, va_list ap)
 	char buf[BLANKS];
 	
 	if (flags->type == FL && MB_CUR_MAX > 1)
-		return(ft_printf_lc(flags, ap));
+		return(ft_printf_lc2(flags, ap));
 	if (flags->type == FL && MB_CUR_MAX)
 		return (-1);
 	c = va_arg(ap, int);

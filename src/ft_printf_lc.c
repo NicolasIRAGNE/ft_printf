@@ -6,7 +6,7 @@
 /*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/14 17:07:51 by niragne           #+#    #+#             */
-/*   Updated: 2017/06/16 16:35:43 by niragne          ###   ########.fr       */
+/*   Updated: 2017/06/16 19:40:03 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ int	ft_wstrlen(wchar_t *str)
 
 	i = 0;
 	j = 0;
+	if (!str)
+		return (0);
 	while (str[i])
 	{
 		j += ft_wcharlen(str[i]);
@@ -102,13 +104,14 @@ wchar_t	*ft_wstrdup(char *str)
 	i = 0;
 
 	len = ft_strlen(str);
-	if (!(new = (wchar_t *)malloc(sizeof(*new) * len + 1)))
+	if (!(new = (wchar_t *)malloc(sizeof(*new) * (len + 1))))
 		return (NULL);
 	while (i < len)
 	{
 		new[i] = str[i];
 		i++;
 	}
+	new[i] = '\0';
 	return (new);
 }
 

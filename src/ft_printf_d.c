@@ -6,7 +6,7 @@
 /*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/10 16:40:08 by niragne           #+#    #+#             */
-/*   Updated: 2017/06/16 17:59:11 by niragne          ###   ########.fr       */
+/*   Updated: 2017/06/16 19:19:31 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		ft_printf_d(t_flags *flags, va_list ap)
 	if (f == NULL)
 		fill_arr_signed(&f);
 	f[TYPE](&nb, ap);
-	len = nbrtostrneg(nb, &str, 10, FLAGS);
+	len = nbrtostrneg(nb, &str, 10, FLAGS) - (!nb && !PREC && (FLAGS & FPREC));
 	oui = *str == '-' || *str == '+' || *str == ' ';
 	PREC = (!(PREC < len) * PREC - len) + oui;
 	BLANKS -= PREC * (PREC > 0) + len;

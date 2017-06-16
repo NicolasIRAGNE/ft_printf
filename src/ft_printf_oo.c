@@ -6,7 +6,7 @@
 /*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/12 18:42:39 by niragne           #+#    #+#             */
-/*   Updated: 2017/06/12 18:45:18 by niragne          ###   ########.fr       */
+/*   Updated: 2017/06/16 19:34:35 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 
 int		ft_printf_oo(t_flags *flags, va_list ap)
 {
-	TYPE |= FL;
+	ft_type_l(flags, NULL);
 	return (ft_printf_o(flags,ap));
 }

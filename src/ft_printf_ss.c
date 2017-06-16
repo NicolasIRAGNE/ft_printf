@@ -6,7 +6,7 @@
 /*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 14:21:08 by niragne           #+#    #+#             */
-/*   Updated: 2017/06/16 16:26:14 by niragne          ###   ########.fr       */
+/*   Updated: 2017/06/16 21:44:23 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ int		ft_printf_ss(t_flags *flags, va_list ap)
 	int len;
 	int i;
 	char buf[BLANKS];
-	int ret = 0;
 
 	str = va_arg(ap, wchar_t*);
 	if (!(len = ft_wstrlen(str)))
@@ -43,13 +42,12 @@ int		ft_printf_ss(t_flags *flags, va_list ap)
 		if (!str)
 		{
 			str = ft_wstrdup("(null)");
+			FLAGS |= FNUL;
 			len = 6;
 		}
 	}
 	if (ft_check_wchar(str) == -1)
 		return (-1);
-	if (flags->type == FL)
-		return(ft_printf_ls(flags, va_arg(ap, wchar_t *)));
 	if (PREC > len || !(FLAGS & FPREC))
 		PREC = len;
 	BLANKS -= PREC;
@@ -59,12 +57,13 @@ int		ft_printf_ss(t_flags *flags, va_list ap)
 		ft_memset(buf, ' ' + 16 * ((FLAGS & FZE) > 0), BLANKS);
 		ft_buf(1, buf, BLANKS);
 	}
-	ret += ft_putwstr(str);
+	ft_putwstr(str);
 	if (BLANKS > 0 && (FLAGS & FSUB))
 	{
 		ft_memset(buf, ' ', BLANKS);
 		ft_buf(1, buf, BLANKS);
 	}
-	printf("%d %d\n", PREC, BLANKS);
+	if (FLAGS & FNUL)
+		free(str);
 	return (PREC + BLANKS * (BLANKS > 0) + 6 * (!(str)));
 }

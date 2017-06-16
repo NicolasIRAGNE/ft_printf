@@ -6,7 +6,7 @@
 /*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/12 14:42:22 by niragne           #+#    #+#             */
-/*   Updated: 2017/06/16 18:28:21 by niragne          ###   ########.fr       */
+/*   Updated: 2017/06/16 21:25:32 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,6 @@ void	fill_flag_array(unsigned int arr[127])
 	arr['-'] = 1;
 	arr[' '] = 1;
 	arr['+'] = 1;
-	arr['$'] = 1;
-	arr['*'] = 1;
 	arr['z'] = 1;
 	arr['l'] = 1;
 	arr['h'] = 1;
@@ -85,10 +83,13 @@ void	fill_func_ptr_arr(int (*f[127])(t_flags *, va_list))
 	f['u'] = ft_printf_u;
 	f['U'] = ft_printf_uu;	
 	f['o'] = ft_printf_o;
+	f['O'] = ft_printf_oo;
 	f['x'] = ft_printf_x;
 	f['X'] = ft_printf_xx;
 	f['p'] = ft_printf_p;
 	f['%'] = ft_printf_pct;
+	f['i'] = ft_printf_d;
+	f['b'] = ft_printf_b;
 
 }
 
@@ -105,7 +106,8 @@ void		add_dollar(t_flags *flags, char **str)
 
 void		add_zero(t_flags *flags, char **str)
 {
-	FLAGS |= FZE;
+	if (!(FLAGS & PREC))
+		FLAGS |= FZE;
 }
 
 void	add_minus(t_flags *flags, char **str)
@@ -124,6 +126,8 @@ void		change_precision(t_flags *flags, char **str)
 {
 	flags->precision = 0;
 	FLAGS |= FPREC;
+	if (FLAGS & FZE)
+		FLAGS ^= FZE;
 	(*str)++;
 	while (**str >= '0' && **str <= '9')
 	{
