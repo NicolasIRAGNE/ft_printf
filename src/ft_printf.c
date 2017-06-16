@@ -6,7 +6,7 @@
 /*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/12 14:42:22 by niragne           #+#    #+#             */
-/*   Updated: 2017/06/13 18:21:13 by niragne          ###   ########.fr       */
+/*   Updated: 2017/06/16 14:20:19 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,11 @@ void	fill_func_ptr_arr(int (*f[127])(t_flags *, va_list))
 {
 	fill_error_func(f);
 	f['s'] = ft_printf_s;
+	f['S'] = ft_printf_ss;
 	f['d'] = ft_printf_d;
 	f['D'] = ft_printf_dd;
 	f['c'] = ft_printf_c;
+	f['C'] = ft_printf_lc;
 	f['u'] = ft_printf_u;
 	f['U'] = ft_printf_uu;	
 	f['o'] = ft_printf_o;

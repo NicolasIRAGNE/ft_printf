@@ -6,13 +6,14 @@
 #    By: niragne <niragne@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/06/02 23:46:42 by anonymous         #+#    #+#              #
-#    Updated: 2017/06/13 18:20:47 by niragne          ###   ########.fr        #
+#    Updated: 2017/06/16 14:31:58 by niragne          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libftprintf.a
 SRC_PATH = src
 SRC_FILES = 	ft_printf.c \
+				ft_printf_lc.c \
 				ft_printf_s.c \
 				ft_printf_d.c \
 				ft_printf_u.c \
@@ -24,6 +25,7 @@ SRC_FILES = 	ft_printf.c \
 				ft_printf_dd.c \
 				ft_printf_uu.c \
 				ft_printf_xx.c \
+				ft_printf_ss.c \
 				cast1.c \
 				cast2.c \
 				cast3.c \

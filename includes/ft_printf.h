@@ -6,7 +6,7 @@
 /*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/02 23:26:29 by anonymous         #+#    #+#             */
-/*   Updated: 2017/06/13 18:20:59 by niragne          ###   ########.fr       */
+/*   Updated: 2017/06/16 16:16:46 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int		ft_printf_d(t_flags *flags, va_list ap);
 int		ft_printf_s(t_flags *flags, va_list ap);
 int		ft_printf_u(t_flags *flags, va_list ap);
 int		ft_printf_uu(t_flags *flags, va_list ap);
+int		ft_printf_lc(t_flags *flags, va_list ap);
 int		ft_printf_c(t_flags *flags, va_list ap);
 int		ft_printf_ls(t_flags *flags, wchar_t *str);
 int		ft_printf_o(t_flags *flags, va_list ap);
@@ -69,6 +70,7 @@ int		ft_printf_x(t_flags *flags, va_list ap);
 int		ft_printf_xx(t_flags *flags, va_list ap);
 int		ft_printf_p(t_flags *flags, va_list ap);
 int		ft_printf_dd(t_flags *flags, va_list ap);
+int		ft_printf_ss(t_flags *flags, va_list ap);
 int		nbrtostr(t_ullint nb, char **str, int base, int maj);
 void	ft_cast_uint(t_ullint *nb, va_list ap);
 void	ft_cast_uchar(t_ullint *nb, va_list ap);
@@ -89,6 +91,12 @@ void	fill_arr_signed(void (***f)(t_llint *, va_list));
 void	printchar(int c, int size);
 int		cmp(int a, int b);
 int		ft_buf(int fd, void *str, int size);
-int		nbrtostrneg(t_llint nb, char **str, int base);
+int		nbrtostrneg(t_llint nb, char **str, int base, int fplus);
+int		ft_putwcharbuf(wchar_t c);
+int		ft_putwstr(wchar_t *str);
+int 	ft_wstrlen(wchar_t *str);
+wchar_t	*ft_wstrdup(char *str);
+int		ft_wcharlen(wchar_t c);
+
 
 #endif

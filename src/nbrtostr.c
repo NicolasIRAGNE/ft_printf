@@ -6,7 +6,7 @@
 /*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/10 17:44:03 by niragne           #+#    #+#             */
-/*   Updated: 2017/06/13 18:21:44 by niragne          ###   ########.fr       */
+/*   Updated: 2017/06/16 16:11:50 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,16 +46,16 @@ int	nbrtostr(t_ullint nb, char **str, int base, int maj)
 	return (len);
 }
 
-int	nbrtostrneg(t_llint nb, char **str, int base)
+int	nbrtostrneg(t_llint nb, char **str, int base, int fplus)
 {
 	int i;
 	t_llint div;
 	int len;
 	int neg;
 
-	len = 1;
+	len = 1 + fplus;
 	div = -1;
-	i = 0;
+	i = fplus;
 	neg = 0;
 	if (nb >= 0)
 		nb = -nb;
@@ -73,9 +73,9 @@ int	nbrtostrneg(t_llint nb, char **str, int base)
 	
 	if (!(*str = (char *)malloc(sizeof(**str) * (len + 1))))
 		exit(1);
-	if (neg)
+	if (neg || fplus)
 	{
-		(*str)[0] = '-';
+		(*str)[0] = '-' - 2 * fplus;
 	}
 	while (div < 0)
 	{
