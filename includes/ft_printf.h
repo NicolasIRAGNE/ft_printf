@@ -5,13 +5,13 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/06/02 23:26:29 by anonymous         #+#    #+#             */
-/*   Updated: 2017/06/16 21:19:38 by niragne          ###   ########.fr       */
+/*   Created: 2017/06/17 17:17:14 by niragne           #+#    #+#             */
+/*   Updated: 2017/06/19 16:42:04 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
-# define FT_PRINTF_H	
+# define FT_PRINTF_H
 
 # include <stdarg.h>
 # include <stdlib.h>
@@ -40,22 +40,26 @@
 # define BLANKS flags->blanks
 # define PREC flags->precision
 # define TYPE flags->type
+# define RET beep.ret
+# define TMP beep.tmp
 
 int		ft_printf(const char *format, ...);
 
-typedef struct s_flags t_flags;
-typedef unsigned int t_uint;
-typedef unsigned long long int t_ullint;
-typedef long long int t_llint;
-typedef unsigned long int t_ulint;
-typedef unsigned char		t_uchar;
+typedef struct s_flags			t_flags;
+typedef unsigned int			t_uint;
+typedef unsigned long long int	t_ullint;
+typedef long long int			t_llint;
+typedef unsigned long int		t_ulint;
+typedef unsigned char			t_uchar;
 
-struct s_flags
+struct	s_flags
 {
 	t_uint	flags;
 	int		blanks;
 	int		precision;
 	int		type;
+	int		ret;
+	int		tmp;
 };
 
 void	ft_type_l(t_flags *flags, char **str);
@@ -97,11 +101,30 @@ int		ft_buf(int fd, void *str, int size);
 int		nbrtostrneg(t_llint nb, char **str, int base, t_uint flags);
 int		ft_putwcharbuf(wchar_t c);
 int		ft_putwstr(wchar_t *str);
-int 	ft_wstrlen(wchar_t *str);
+int		ft_wstrlen(wchar_t *str);
 wchar_t	*ft_wstrdup(char *str);
 int		ft_wcharlen(wchar_t c);
 int		ft_printf_pct(t_flags *flags, va_list ap);
 int		ft_printf_lc2(t_flags *flags, va_list ap);
-
+void	add_space(t_flags *flags, char **str);
+void	ft_type_j(t_flags *flags, char **str);
+void	ft_type_z(t_flags *flags, char **str);
+void	ft_type_h(t_flags *flags, char **str);
+void	ft_type_l(t_flags *flags, char **str);
+void	add_ht(t_flags *flags, char **str);
+void	add_dollar(t_flags *flags, char **str);
+void	add_zero(t_flags *flags, char **str);
+void	add_minus(t_flags *flags, char **str);
+void	add_plus(t_flags *flags, char **str);
+void	fill_func_ptr_arr(int (*f[256])(t_flags *, va_list));
+void	fill_flag_ptr_arr(void (*f[256])(t_flags *, char **));
+void	init_flags(t_flags *flags);
+void	ft_blanks(t_flags *flags, char **str);
+int		ft_printf_error(t_flags *flags, va_list ap);
+void	fill_error_func(int (*f[256])(t_flags *, va_list));
+void	fill_flag_array(unsigned int arr[256]);
+int		checkflags(const char *str, va_list ap, int (*f[256])
+	(t_flags *, va_list), t_flags *flags);
+void	change_precision(t_flags *flags, char **str);
 
 #endif

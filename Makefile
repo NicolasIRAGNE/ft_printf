@@ -6,7 +6,7 @@
 #    By: niragne <niragne@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/06/02 23:46:42 by anonymous         #+#    #+#              #
-#    Updated: 2017/06/16 21:16:50 by niragne          ###   ########.fr        #
+#    Updated: 2017/06/17 18:10:52 by niragne          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,11 @@ SRC_FILES = 	ft_printf.c \
 				cast2.c \
 				cast3.c \
 				cast4.c \
+				type1.c \
+				type2.c \
 				tools.c \
+				flags.c \
+				flags2.c \
 				buf.c \
 				nbrtostr.c
 
@@ -61,7 +65,7 @@ $(LIB):
 	make -C $(LIB_PATH)
 
 obj/%.o: $(SRC_PATH)/%.c
-	gcc $(INCLUDES) -c -o $@ $<
+	gcc -Wall -Werror -Wextra $(INCLUDES) -c -o $@ $<
 
 clean:
 	make -C $(LIB_PATH) clean

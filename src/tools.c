@@ -6,18 +6,11 @@
 /*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/12 15:58:29 by niragne           #+#    #+#             */
-/*   Updated: 2017/06/13 17:07:14 by niragne          ###   ########.fr       */
+/*   Updated: 2017/06/19 17:05:41 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-int cmp(int a, int b)
-{
-	if (a > b)
-		return (a);
-	return (b);
-}
 
 void	fill_arr(void (***f)(t_ullint *, va_list))
 {
@@ -51,4 +44,19 @@ void	printchar(int c, int size)
 
 	ft_memset(buf, c, size);
 	ft_buf(1, buf, size);
+}
+
+void		change_precision(t_flags *flags, char **str)
+{
+	flags->precision = 0;
+	FLAGS |= FPREC;
+	if (FLAGS & FZE)
+		FLAGS ^= FZE;
+	(*str)++;
+	while (**str >= '0' && **str <= '9')
+	{
+		flags->precision = flags->precision * 10 + **str - '0';
+		(*str)++;
+	}
+	(*str)--;
 }

@@ -6,7 +6,7 @@
 /*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/14 17:07:51 by niragne           #+#    #+#             */
-/*   Updated: 2017/06/16 19:40:03 by niragne          ###   ########.fr       */
+/*   Updated: 2017/06/17 14:22:17 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,12 @@
 
 int	ft_putwcharbuf(wchar_t c)
 {
-	int nb_bytes = 1;
-	int masque = 0xf0e0c080;
+	int nb_bytes;
 	unsigned int ret = 0;
 
+	nb_bytes = 1;
 	if (!(c >> (7 + (MB_CUR_MAX == 1))))
-	{
 		ret = c;
-		nb_bytes = 1;
-	}
 	else if (!(c >> 11))
 	{
 		ret |= ((c & 0x3F) << 8);
@@ -52,6 +49,7 @@ int	ft_wcharlen(wchar_t c)
 {
 	int nb_bytes;
 
+	nb_bytes = 1;
 	if (!(c >> (7 + (MB_CUR_MAX == 1))))
 		nb_bytes = 1;
 	else if (!(c >> 11))
@@ -98,7 +96,7 @@ int	ft_putwstr(wchar_t *str)
 wchar_t	*ft_wstrdup(char *str)
 {
 	wchar_t		*new;
-	size_t		i;
+	int			i;
 	int 		len;
 
 	i = 0;
@@ -130,6 +128,8 @@ int		ft_printf_lc2(t_flags *flags, va_list ap)
 	c = va_arg(ap, wchar_t);
 	BLANKS--;
 	i = 0;
+	if ((c > 255 && MB_CUR_MAX == 1) || c < 0)
+		return (-1);
 	if (BLANKS > 0 && !(FLAGS & FSUB))
 	{
 		ft_memset(buf, ' ' + 16 * ((FLAGS & FZE) > 0), BLANKS);

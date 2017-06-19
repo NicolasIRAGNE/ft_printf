@@ -6,7 +6,7 @@
 /*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 18:06:22 by niragne           #+#    #+#             */
-/*   Updated: 2017/06/16 18:08:25 by niragne          ###   ########.fr       */
+/*   Updated: 2017/06/17 14:22:55 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int		ft_printf_pct(t_flags *flags, va_list ap)
 {
-	unsigned char c;
 	int i;
 	char buf[BLANKS];
 	
