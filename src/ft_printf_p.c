@@ -6,7 +6,7 @@
 /*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/12 17:15:52 by niragne           #+#    #+#             */
-/*   Updated: 2017/06/16 21:42:11 by niragne          ###   ########.fr       */
+/*   Updated: 2017/06/25 16:37:10 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int		ft_printf_p(t_flags *flags, va_list ap)
 {
-	t_ulint	nb;
+	t_ulint		nb;
 	int			len;
 	char		*str;
 	static void	(**f)(t_ullint *, va_list) = NULL;
@@ -23,15 +23,11 @@ int		ft_printf_p(t_flags *flags, va_list ap)
 		fill_arr(&f);
 	nb = va_arg(ap, t_ulint);
 	len = nbrtostr(nb, &str, 16, 0);
-	if (BLANKS > 0)
-		BLANKS -= 2;
+	BLANKS -= 2 * (BLANKS > 0);
 	PREC = (!(PREC < len) * PREC - len);
 	BLANKS = (!(BLANKS < PREC + len) * BLANKS - ((PREC > 0) * PREC + len));
-	if (FLAGS & FZE && BLANKS > 0)
-	{
-		PREC = BLANKS;
-		BLANKS = 0;
-	}
+	PREC = (FLAGS & FZE && BLANKS > 0) ? BLANKS : PREC;
+	BLANKS -= BLANKS * (FLAGS & FZE && BLANKS > 0);
 	if (BLANKS > 0 && !(FLAGS & FSUB))
 		printchar(' ' + 16 * ((FLAGS & FZE) && (!(FLAGS & FPREC))), BLANKS);
 	ft_buf(1, "0x", 2);

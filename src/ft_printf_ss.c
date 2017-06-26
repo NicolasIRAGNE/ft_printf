@@ -6,13 +6,13 @@
 /*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 14:21:08 by niragne           #+#    #+#             */
-/*   Updated: 2017/06/16 21:44:23 by niragne          ###   ########.fr       */
+/*   Updated: 2017/06/25 16:54:17 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		ft_check_wchar(wchar_t *str)
+int			ft_check_wchar(wchar_t *str)
 {
 	int i;
 
@@ -29,12 +29,26 @@ int		ft_check_wchar(wchar_t *str)
 	return (i);
 }
 
-int		ft_printf_ss(t_flags *flags, va_list ap)
+static void	ft_fillbuf(t_flags *flags, wchar_t *str, char *buf)
 {
-	wchar_t *str;
-	int len;
-	int i;
-	char buf[BLANKS];
+	if (BLANKS > 0 && !(FLAGS & FSUB))
+	{
+		ft_memset(buf, ' ' + 16 * ((FLAGS & FZE) > 0), BLANKS);
+		ft_buf(1, buf, BLANKS);
+	}
+	ft_putwstr(str);
+	if (BLANKS > 0 && (FLAGS & FSUB))
+	{
+		ft_memset(buf, ' ', BLANKS);
+		ft_buf(1, buf, BLANKS);
+	}
+}
+
+int			ft_printf_ss(t_flags *flags, va_list ap)
+{
+	wchar_t		*str;
+	int			len;
+	char		buf[BLANKS];
 
 	str = va_arg(ap, wchar_t*);
 	if (!(len = ft_wstrlen(str)))
@@ -51,18 +65,7 @@ int		ft_printf_ss(t_flags *flags, va_list ap)
 	if (PREC > len || !(FLAGS & FPREC))
 		PREC = len;
 	BLANKS -= PREC;
-	i = 0;
-	if (BLANKS > 0 && !(FLAGS & FSUB))
-	{
-		ft_memset(buf, ' ' + 16 * ((FLAGS & FZE) > 0), BLANKS);
-		ft_buf(1, buf, BLANKS);
-	}
-	ft_putwstr(str);
-	if (BLANKS > 0 && (FLAGS & FSUB))
-	{
-		ft_memset(buf, ' ', BLANKS);
-		ft_buf(1, buf, BLANKS);
-	}
+	ft_fillbuf(flags, str, buf);
 	if (FLAGS & FNUL)
 		free(str);
 	return (PREC + BLANKS * (BLANKS > 0) + 6 * (!(str)));

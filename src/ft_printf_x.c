@@ -6,7 +6,7 @@
 /*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/12 17:06:43 by niragne           #+#    #+#             */
-/*   Updated: 2017/06/16 21:43:02 by niragne          ###   ########.fr       */
+/*   Updated: 2017/06/25 18:25:54 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,21 +21,8 @@ static void	add_prefix(t_flags *flags)
 		ft_buf(1, "x", 1);
 }
 
-int		ft_printf_x(t_flags *flags, va_list ap)
+static void	print_all(t_flags *flags, int len, char *str, int nb)
 {
-	t_ullint	nb;
-	int			len;
-	char		*str;
-	static void	(**f)(t_ullint *, va_list) = NULL;
-
-	if (f == NULL)
-		fill_arr(&f);
-	f[TYPE](&nb, ap);
-	len = nbrtostr(nb, &str, 16, ((FLAGS & FMAJ) > 0)) - (!nb && !PREC && (FLAGS & FPREC));
-	if (BLANKS > 0 && (FLAGS & FHT))
-		BLANKS -= 2;
-	PREC = (!(PREC < len) * PREC - len);
-	BLANKS = (!(BLANKS < PREC + len) * BLANKS - ((PREC > 0) * PREC + len));
 	if (FLAGS & FHT && nb && (FLAGS & FZE))
 		add_prefix(flags);
 	if (BLANKS > 0 && !(FLAGS & FSUB))
@@ -47,6 +34,26 @@ int		ft_printf_x(t_flags *flags, va_list ap)
 	ft_buf(1, str, len);
 	if (BLANKS > 0 && (FLAGS & FSUB))
 		printchar(' ', BLANKS);
+}
+
+int			ft_printf_x(t_flags *flags, va_list ap)
+{
+	t_ullint	nb;
+	int			len;
+	char		*str;
+	static void	(**f)(t_ullint *, va_list) = NULL;
+
+	if (f == NULL)
+		fill_arr(&f);
+	f[TYPE](&nb, ap);
+	len = nbrtostr(nb, &str, 16, ((FLAGS & FMAJ) > 0))
+	- (!nb && !PREC && (FLAGS & FPREC));
+	if (BLANKS > 0 && (FLAGS & FHT))
+		BLANKS -= 2;
+	PREC = (!(PREC < len) * PREC - len);
+	BLANKS = (!(BLANKS < PREC + len) * BLANKS - ((PREC > 0) * PREC + len));
+	print_all(flags, len, str, nb);
 	free(str);
-	return (len + BLANKS * (BLANKS > 0) + PREC * (PREC > 0) + 2 * (((FLAGS & FHT) && nb) > 0));
+	return (len + BLANKS * (BLANKS > 0) + PREC * (PREC > 0) + 2 *
+	(((FLAGS & FHT) && nb) > 0));
 }

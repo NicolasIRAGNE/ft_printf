@@ -6,7 +6,7 @@
 /*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/12 15:57:52 by niragne           #+#    #+#             */
-/*   Updated: 2017/06/16 21:42:29 by niragne          ###   ########.fr       */
+/*   Updated: 2017/06/25 16:10:57 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ int		ft_printf_o(t_flags *flags, va_list ap)
 	if (f == NULL)
 		fill_arr(&f);
 	f[TYPE](&nb, ap);
-	len = nbrtostr(nb, &str, 8, 0) + ((FLAGS & FHT) && nb) - (!nb && !PREC && (FLAGS & FPREC));
+	len = nbrtostr(nb, &str, 8, 0) + ((FLAGS & FHT) && nb)
+	- (!nb && !PREC && (FLAGS & FPREC));
 	PREC = (!(PREC < len) * PREC - len);
 	BLANKS = (!(BLANKS < PREC + len) * BLANKS - ((PREC > 0) * PREC + len));
 	if (BLANKS > 0 && !(FLAGS & FSUB))
@@ -35,5 +36,6 @@ int		ft_printf_o(t_flags *flags, va_list ap)
 	if (BLANKS > 0 && (FLAGS & FSUB))
 		printchar(' ', BLANKS);
 	free(str);
-	return (len + BLANKS * (BLANKS > 0) + PREC * (PREC > 0) + ((FLAGS & FHT) && (FLAGS & FPREC) && !nb));
+	return (len + BLANKS * (BLANKS > 0) + PREC * (PREC > 0)
+	+ ((FLAGS & FHT) && (FLAGS & FPREC) && !nb));
 }

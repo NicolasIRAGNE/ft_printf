@@ -6,13 +6,13 @@
 /*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/12 15:58:29 by niragne           #+#    #+#             */
-/*   Updated: 2017/06/19 17:05:41 by niragne          ###   ########.fr       */
+/*   Updated: 2017/06/25 18:41:05 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	fill_arr(void (***f)(t_ullint *, va_list))
+void		fill_arr(void (***f)(t_ullint *, va_list))
 {
 	if (!(*f = malloc(sizeof(**f) * 7)))
 		exit(1);
@@ -25,7 +25,7 @@ void	fill_arr(void (***f)(t_ullint *, va_list))
 	(*f)[6] = ft_cast_ulong_long;
 }
 
-void	fill_arr_signed(void (***f)(t_llint *, va_list))
+void		fill_arr_signed(void (***f)(t_llint *, va_list))
 {
 	if (!(*f = malloc(sizeof(**f) * 7)))
 		exit(1);
@@ -38,7 +38,7 @@ void	fill_arr_signed(void (***f)(t_llint *, va_list))
 	(*f)[6] = ft_cast_long_long;
 }
 
-void	printchar(int c, int size)
+void		printchar(int c, int size)
 {
 	char buf[size];
 
@@ -58,5 +58,4 @@ void		change_precision(t_flags *flags, char **str)
 		flags->precision = flags->precision * 10 + **str - '0';
 		(*str)++;
 	}
-	(*str)--;
 }

@@ -6,13 +6,13 @@
 /*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/17 17:59:44 by niragne           #+#    #+#             */
-/*   Updated: 2017/06/19 17:05:35 by niragne          ###   ########.fr       */
+/*   Updated: 2017/06/26 17:20:42 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	fill_flag_ptr_arr(void (*f[256])(t_flags *, char **))
+void		fill_flag_ptr_arr(void (*f[256])(t_flags *, char **))
 {
 	f['#'] = add_ht;
 	f['$'] = add_dollar;
@@ -36,7 +36,7 @@ void	fill_flag_ptr_arr(void (*f[256])(t_flags *, char **))
 	f['l'] = ft_type_l;
 }
 
-void	init_flags(t_flags *flags)
+void		init_flags(t_flags *flags)
 {
 	BLANKS = 0;
 	TYPE = 0;
@@ -44,7 +44,7 @@ void	init_flags(t_flags *flags)
 	FLAGS = 0;
 }
 
-void	fill_func_ptr_arr(int (*f[256])(t_flags *, va_list))
+void		fill_func_ptr_arr(int (*f[256])(t_flags *, va_list))
 {
 	fill_error_func(f);
 	f['s'] = ft_printf_s;
@@ -63,6 +63,7 @@ void	fill_func_ptr_arr(int (*f[256])(t_flags *, va_list))
 	f['%'] = ft_printf_pct;
 	f['i'] = ft_printf_d;
 	f['b'] = ft_printf_b;
+	f['n'] = ft_printf_n;
 }
 
 void		ft_blanks(t_flags *flags, char **str)
@@ -73,5 +74,4 @@ void		ft_blanks(t_flags *flags, char **str)
 		BLANKS = BLANKS * 10 + **str - '0';
 		(*str)++;
 	}
-	(*str)--;
 }

@@ -6,7 +6,7 @@
 /*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/17 17:24:10 by niragne           #+#    #+#             */
-/*   Updated: 2017/06/19 17:03:08 by niragne          ###   ########.fr       */
+/*   Updated: 2017/06/26 16:51:43 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdio.h>
 
 void	init_all(int (*f[256])(t_flags *, va_list),
- void (*flagptr[256])(t_flags *, char **), t_uint flags[256], t_flags *beep)
+	void (*flagptr[256])(t_flags *, char **), t_uint flags[256], t_flags *beep)
 {
 	beep->ret = 0;
 	if (flags[0] == (t_uint)-1)
@@ -25,10 +25,10 @@ void	init_all(int (*f[256])(t_flags *, va_list),
 	}
 }
 
-void	end_buf(void)
+int		end_buf(int ret)
 {
-	ft_buf(1, "", 1);
 	ft_buf(1, NULL, -1);
+	return (ret);
 }
 
 int		ft_printf(const char *format, ...)
@@ -48,20 +48,14 @@ int		ft_printf(const char *format, ...)
 			format++;
 			init_flags(&beep);
 			while (flags[(int)*format])
-			{
 				flagptr[(int)*format](&beep, (char**)&format);
-			}
 			TMP = checkflags(format, ap, f, &beep);
 			format -= (TMP == -2);
 			RET += TMP * (!(TMP == -2));
 		}
-		else
-		{
-			RET++;
+		else if (++RET)
 			ft_buf(1, (void*)format, 1);
-		}
 		format++;
 	}
-	end_buf();
-	return (RET);
+	return (TMP == -3 ? -1 : end_buf(RET));
 }

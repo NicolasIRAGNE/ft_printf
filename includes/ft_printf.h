@@ -6,7 +6,7 @@
 /*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/17 17:17:14 by niragne           #+#    #+#             */
-/*   Updated: 2017/06/19 16:42:04 by niragne          ###   ########.fr       */
+/*   Updated: 2017/06/26 17:20:13 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@
 int		ft_printf(const char *format, ...);
 
 typedef struct s_flags			t_flags;
+typedef struct s_itoa			t_itoa;
 typedef unsigned int			t_uint;
 typedef unsigned long long int	t_ullint;
 typedef long long int			t_llint;
@@ -60,6 +61,14 @@ struct	s_flags
 	int		type;
 	int		ret;
 	int		tmp;
+};
+
+struct	s_itoa
+{
+	int		i;
+	t_llint	div;
+	int		len;
+	int		neg;
 };
 
 void	ft_type_l(t_flags *flags, char **str);
@@ -98,7 +107,7 @@ void	fill_arr_signed(void (***f)(t_llint *, va_list));
 void	printchar(int c, int size);
 int		cmp(int a, int b);
 int		ft_buf(int fd, void *str, int size);
-int		nbrtostrneg(t_llint nb, char **str, int base, t_uint flags);
+int		nbneg(t_llint nb, char **str, int base, t_uint flags);
 int		ft_putwcharbuf(wchar_t c);
 int		ft_putwstr(wchar_t *str);
 int		ft_wstrlen(wchar_t *str);
@@ -126,5 +135,12 @@ void	fill_flag_array(unsigned int arr[256]);
 int		checkflags(const char *str, va_list ap, int (*f[256])
 	(t_flags *, va_list), t_flags *flags);
 void	change_precision(t_flags *flags, char **str);
+int		iscaps(t_flags *flags, int nb);
+int		ft_putwcharbuf(wchar_t c);
+int		ft_wcharlen(wchar_t c);
+int		ft_wstrlen(wchar_t *str);
+int		ft_putwstr(wchar_t *str);
+wchar_t	*ft_wstrdup(char *str);
+int		ft_printf_n(t_flags *flags, va_list ap);
 
 #endif
